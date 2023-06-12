@@ -1,0 +1,13 @@
+Машинное обучение
+https://www.codecamp.ru/blog/machine-learning-python-tutorial/
+
+Руководство для начинающих 
+https://mlbootcamp.ru/ru/article/tutorial/
+
+Пример решения
+https://neurohive.io/ru/tutorial/primer-reshenija-realnoj-zadachi-po-mashinnomu-obucheniju-na-python/
+
+Этапы анализа данных
+https://pythonru.com/baza-znanij/process-analiza-dannyh
+
+Доп. изучение
