@@ -10,4 +10,3 @@ https://neurohive.io/ru/tutorial/primer-reshenija-realnoj-zadachi-po-mashinnomu-
 Этапы анализа данных
 https://pythonru.com/baza-znanij/process-analiza-dannyh
 
-Доп. изучение
