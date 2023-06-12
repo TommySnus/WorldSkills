@@ -1,3 +1,6 @@
+Юпитер
+ctrl + m - комментирование
+
 Машинное обучение
 https://www.codecamp.ru/blog/machine-learning-python-tutorial/
 
@@ -10,3 +13,75 @@ https://neurohive.io/ru/tutorial/primer-reshenija-realnoj-zadachi-po-mashinnomu-
 Этапы анализа данных
 https://pythonru.com/baza-znanij/process-analiza-dannyh
 
+4 этапа К
+https://proglib.io/p/unsupervised-ml-with-python
+
+Лист Питон
+https://docs.python.org/3/tutorial/datastructures.html
+
+Библиотеки
+
+import pandas as pd - обработка и аниализ данных
+print('scipy: {}'.format(scipy.__version__)) - проверка версии
+import numpy as np - работа с массивами
+import matplotlib.pyplot as plt - визуализация
+from collections import Counter - для удобных и быстрых подсчетов количества появлений неизменяемых элементов в последовательностях
+import seaborn as sns - библиотека для создания статистических графиков на Python
+from fitter import Fitter - подгонки вероятностных распределений к данным
+import warnings - предупреждения
+import time - задачи для времени
+
+Работа с файлами
+
+def readFileФормат(имя файла):
+# Считывание файла формата TXT
+df_ = pd.read_table(filename, delimiter = ',')
+df_toФормат("название", index - значение boolean) 
+print (df) - создание датасета
+pd.read_table(Параметры) - считывание для датасета
+delimiter - задаёт символ, который будет разделять элементы в файле 
+out = pd.read_table('outcomes.txt', delimiter = ',')
+print(out[['Параметры']].iloc[0])
+iloc[] - позиция
+def - объявление функции(ресурсы)
+list - 
+
+Обработка библиотеки Пандас
+df.isnull() - Обнаружение отсутствующих значений. Возвращает логический объект того же размера, указывающий, являются ли значения NA. 
+df.info() - информация о полях
+pd.concat([table1 , table2], axis=1) - сопостовление заранее созданных таблиц по столбцам (0 для строк)
+таблица с колоннами.rename(columns = {0:'', 1:''}) - переименование колонны в таблице
+df.drop - удаление
+df.shape - форма
+df.describe - описание датафрейма
+df.loc - значение в расположении (location)
+df_edited.iloc - хардовый
+df.replace - замена
+pd.таблица(filename)
+
+Шаблоны работы с функцией:
+def Nazvanie(df, df_, table1)
+  обработка (поочередное объявление функций и работа с библиотеками)
+  print()
+  return()
+  
+def devideParameters(x, df):
+    # Разделение параметров по встречаемости
+    уникальные_параметры = list(x.keys())
+    n = len(df.index)
+    one_params = []
+    mean_params = []
+    rare_params = []
+    median_params = []
+    for parameter in unique_parameters:
+        if переменная со значением Count заявленная в другой функции[parameter] / n > число:
+            median_params.append(parameter)
+        elif переменная со значением Count заявленная в другой функции[parameter] / n > число:
+            mean_params.append(parameter)
+        elif переменная со значением Count заявленная в другой функции[parameter] / n < число:
+            rare_params.append(parameter)
+        else:
+            one_params.append(parameter)
+
+    feature_list = one_params + rare_params + mean_params + median_params
+    return(feature_list, one_params, rare_params, mean_params, median_params)
