@@ -85,3 +85,142 @@ def devideParameters(x, df):
 
     feature_list = one_params + rare_params + mean_params + median_params
     return(feature_list, one_params, rare_params, mean_params, median_params)
+    
+    
+    
+    
+    
+    
+
+https://gradio.app/developing-faster-with-reload-mode/
+https://gradio.app/quickstart/
+https://www.kaggle.com/code/oyerounak/exploratory-data-analysis
+https://www.kaggle.com/code/parisrohan/featureengg-modelbuild-lr-dtr#1.-Data-preprocessing
+https://www.freecodecamp.org/news/build-gui-using-gradio-for-machine-learning-models/
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
+from fitter import Fitter
+import warnings
+import time
+from pandas import read_csv
+from pandas.plotting import scatter_matrix
+from matplotlib import pyplot
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import StratifiedKFold
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+from sklearn.metrics import accuracy_score
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
+from collections import Counter
+
+
+def MissingValues(df):
+    mis_val = df.isnull().sum()
+        
+    # Процент пустых значений по всем записям и всем параметрам
+    mis_val_percent = 100 * df.isnull().sum() / len(df)
+
+    # Сводная таблица по пустым значениям параметров
+    mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+
+    # Переименовка колонок сводной таблицы
+    mis_val_table_ren_columns = mis_val_table.rename(
+    columns = {0 : 'Сколько пропущенных значений', 1 : '% от общего количества значений'})
+
+    # Сортируем по убыванию процента пропущенных значений
+    mis_val_table_ren_columns = mis_val_table_ren_columns[
+        mis_val_table_ren_columns.iloc[:,1] != 0].sort_values(
+    '% от общего количества значений', ascending=False).round(1)
+
+    # Выводим информацию для итога
+    print ("В выборке данных " + str(df.shape[1]) + " столбцов.\n"      
+        "В ней " + str(mis_val_table_ren_columns.shape[0]) +
+          " столбцов, в которых есть нулевые данные.")
+    return(mis_val_table_ren_columns)
+ 
+ 
+ 
+ 
+ 
+def devideParameters(x, df):
+    # Разделение параметров по встречаемости
+    unique_parameters = list(x.keys())
+    n = len(df.index)
+    one_params = []
+    mean_params = []
+    rare_params = []
+    median_params = []
+    for parameter in unique_parameters:
+        if x[parameter] / n > 10:
+            median_params.append(parameter)
+        elif x[parameter] / n > 1:
+            mean_params.append(parameter)
+        elif x[parameter] / n < 1:
+            rare_params.append(parameter)
+        else:
+            one_params.append(parameter)
+
+    feature_list = one_params + rare_params + mean_params + median_params
+    return(feature_list, one_params, rare_params, mean_params, median_params)
+  
+  
+  
+  
+  
+ data = df.to_numpy()
+figure, axis = plt.subplots((df.dtypes=='float64').sum(), 1)
+figure.set_size_inches(15, 250)
+i = 0
+for column in df.columns:
+    if df.dtypes[column]=='float64':
+        s = pd.Series(data[:, df.columns.get_loc(column)])
+        axis[i].hist(s, bins = 10, log = True)
+        axis[i].set_title(column)
+        i += 1
+plt.show()
+
+
+i = 0
+f = [None] * (df.dtypes=='float64').sum()
+for column in df.columns:
+    if df.dtypes[column]=='float64':
+        f[i] = Fitter(df[column][~df[column].isnull()],
+                   distributions=["expon", "uniform", "norm", "lognorm"],
+                   bins = 15)
+        time.sleep(0.2)
+        f[i].fit()
+        print(column)
+        print(f[i].summary()['sumsquare_error'])
+        i += 1  
+        
+        
+        
+from sklearn import decomposition
+
+X = X_reg.to_numpy()
+X = X.astype(float)
+pca = decomposition.PCA(n_components=2)
+X_centered = X
+X_centered = (X - X.mean(axis=0)) / np.std(X, axis=0)
+pca.fit(X_centered)
+X_pca = pca.transform(X_centered)
+# p - признак, по которому выводим цвет, синий - ближе к минимальному значению, красный - к максимальному
+p = 0
+figure, axis = plt.subplots(1, 1)
+figure.set_size_inches(10, 10)
+axis.scatter(X_pca[:, 0], X_pca[:, 1], s=10, c=(X[:, p] - np.min(X[:, p])) /  (np.max(X[:, p])- np.min(X[:, p])), cmap='jet')
+plt.show()
+
+for i, component in enumerate(pca.components_):
+    print("{} component: {}% of initial variance".format(i + 1, round(100 * pca.explained_variance_ratio_[i], 2)))
+    print(" + ".join("%.3f x %s" % (value, name) for value, name in zip(component, X_reg.columns)))
